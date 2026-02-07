@@ -1,3 +1,7 @@
+/*
+T17
+This file contains the code for the "foundations" study.
+*/
 package main
 
 import (
