@@ -53,6 +53,9 @@ type SomeBehaviors interface {
 	Act(msg string) string
 }
 
+// Empty interface. It will suggest changing it to `any`
+type ExampleInterface interface{}
+
 func main() {
 	println(a)
 	// Initial default value `false`
@@ -175,13 +178,24 @@ func main() {
 	println(b)  // we assigned the memory
 	println(*b) // contents at that address
 	println(&b) // memory address again
+
+	// Will suggest using `any`
+	var testVar interface{} = "John Doe"
+	println(testVar)
+	println(testVar.(string)) // type assertion
+	res, ok := testVar.(int)  // Go says: "nah I can't convert this"
+	println(res, ok)
 }
 
 // (u *User) is a method receiver. This is a method of the User struct
 func (u *User) ChangeName(name string) string {
+	// If we try to change the name it won't since we're working in a copy
 	u.name = name
 	return u.name
 }
+
+// Obs.: to work with the actual value we need to pass the pointer, not the name of the variable
+// itself, since it will send a copy
 
 // Regular function
 func sum(a int, b int) int {
