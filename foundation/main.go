@@ -185,6 +185,11 @@ func main() {
 	println(testVar.(string)) // type assertion
 	res, ok := testVar.(int)  // Go says: "nah I can't convert this"
 	println(res, ok)
+
+	// Generics
+	m3 := map[string]MyGenericNumber{"John": 10, "Jane": 20, "Smith": 30}
+	// Remove the tilde from int in `GenericNumber` to see the error
+	println(genericSum2(m3))
 }
 
 // (u *User) is a method receiver. This is a method of the User struct
@@ -209,4 +214,29 @@ func sumVariadic(msg string, numbers ...int) (string, int) {
 		total += number
 	}
 	return msg, total
+}
+
+// Generic function to work with two types, either int or float32
+func genericSum1[T int | float32](m map[string]T) T {
+	var sum T
+	for _, v := range m {
+		sum += v
+	}
+	return sum
+}
+
+type MyGenericNumber int
+
+type GenericNumber interface {
+	~int | ~float32
+}
+
+// Generic function that uses the tilde to accept any type that the underlying type is also int or
+// float32. Here things start to get shady IMHO
+func genericSum2[T GenericNumber](m map[string]T) T {
+	var sum T
+	for _, v := range m {
+		sum += v
+	}
+	return sum
 }
