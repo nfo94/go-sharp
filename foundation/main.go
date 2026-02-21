@@ -6,6 +6,7 @@ package main
 
 import (
 	"fmt"
+	"foundation/pkg"
 )
 
 // The usual product of a Go project a single executable. You can define the platform when you're
@@ -190,6 +191,32 @@ func main() {
 	m3 := map[string]MyGenericNumber{"John": 10, "Jane": 20, "Smith": 30}
 	// Remove the tilde from int in `GenericNumber` to see the error
 	println(genericSum2(m3))
+
+	// Importing. You need to `go mod init` since Test is in another package. If you don't do this
+	// Go will search in the usr/local/go/src and won't find the package
+	pkg.Test()
+
+	// For loop
+	sampleArr := [3]int{1, 2, 3}
+	for _, v := range sampleArr {
+		fmt.Println(v)
+	}
+
+	// If
+	var defaultBool bool
+	if defaultBool {
+		fmt.Println("True")
+	} else {
+		fmt.Println("False")
+	}
+
+	// Switch
+	switch a {
+	case 1:
+		fmt.Println("1")
+	case 2:
+		fmt.Println("2")
+	}
 }
 
 // (u *User) is a method receiver. This is a method of the User struct
